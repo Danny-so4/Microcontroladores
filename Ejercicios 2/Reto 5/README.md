@@ -28,7 +28,7 @@ El diseño se puede visualizar tanto en la imagen incluida como en la simulació
 
 ## 🖼️ Circuito
 
-![Circuito Reto 5](./assets/reto5.png)
+![Circuito Reto 5](./assets/reto5.jpeg)
 
 ---
 
