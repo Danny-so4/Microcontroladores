@@ -1,4 +1,4 @@
-# Reto 7 - Arduino
+# Ejercicio 1 - Reto 7 - Arduino
 
 Este proyecto corresponde al **Reto 7** de ejercicios con Arduino.  
 Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al diseño en Tinkercad.  
