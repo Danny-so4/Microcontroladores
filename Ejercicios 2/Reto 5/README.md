@@ -1,4 +1,4 @@
-# Ejercicio 1 - Reto 5 - Arduino
+# Ejercicio 2 - Reto 5 - Arduino
 
 Este proyecto corresponde al **Reto 5** de ejercicios con Arduino.  
 Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al diseño en Tinkercad.  
@@ -15,12 +15,12 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 
 ## 📝 Descripción
 
-### Control de Brillo con Pulsadores (PWM)
+### Reto 5: Sistema de alarma con múltiples interrupciones
 
-- Usar un LED y dos botones.
-- Un botón aumentará el brillo del LED.
-- Otro botón disminuirá el brillo.
-- Implementar el control mediante PWM . 
+- Un sensor (ej. PIR o un pulsador) conectado al pin 2 genera una interrupción externa al detectar movimiento.
+- Al activarse, empieza a sonar un buzzer con frecuencia variable usando interrupción por Timer2.
+- La alarma se detiene al presionar otro botón conectado al pin 3 (INT1).
+- Objetivo: Integrar múltiples fuentes de interrupción (externas e internas) en un sistema con diferentes estados.
 
 El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
 
@@ -28,14 +28,14 @@ El diseño se puede visualizar tanto en la imagen incluida como en la simulació
 
 ## 🖼️ Circuito
 
-![Circuito Reto 5](./assets/Reto5.png)
+![Circuito Reto 5](./assets/reto5.png)
 
 ---
 
 ## 🔗 Simulación en Tinkercad
 
 Puedes ver y simular el circuito en el siguiente enlace:  
-👉 [Abrir en Tinkercad](https://www.tinkercad.com/things/bgHnT55wQtH-grand-inari/editel?returnTo=https%3A%2F%2Fwww.tinkercad.com%2Fdashboard%2Fdesigns%2Fcircuits)
+👉 [Abrir en Tinkercad](https://www.tinkercad.com/things/9EcpnBPHTuj-reto25)
 
 ---
 

@@ -1,4 +1,4 @@
-# Ejercicio 2 - Reto 3 - Arduino
+# Ejercicio 4 - Reto 3 - Arduino
 
 Este proyecto corresponde al **Reto 3** de ejercicios con Arduino.  
 Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al diseño en Tinkercad.  
@@ -15,10 +15,14 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 
 ## 📝 Descripción
 
-### Reto 3: Temporizador interno para parpadeo preciso
-- Descripción: Usar Timer1 en modo CTC para generar una interrupción cada 500 ms.
-- En la ISR, invertir el estado de un LED.
-- Objetivo: Demostrar cómo los timers internos permiten controlar el tiempo sin usar delay().
+### Reto 3: Sincronización con semáforos
+Objetivo: 
+- Introducir el control de acceso a recursos compartidos.
+
+
+- Dos tareas intentan escribir en la pantalla LCD o en el puerto Serial (recurso compartido).
+- Usar un semáforo binario o un mutex para que solo una tarea acceda al recurso a la vez.
+- Mostrar en la salida Serial qué tarea está escribiendo y verificar que no haya mensajes mezclados.
 
 
 El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
@@ -28,13 +32,6 @@ El diseño se puede visualizar tanto en la imagen incluida como en la simulació
 ## 🖼️ Circuito
 
 ![Circuito Reto 3](./assets/reto3.jpeg)
-
----
-
-## 🔗 Simulación en Tinkercad
-
-Puedes ver y simular el circuito en el siguiente enlace:  
-👉 [Abrir en Tinkercad](https://www.tinkercad.com/things/dxEEhK4uk9X-reto-23)
 
 ---
 

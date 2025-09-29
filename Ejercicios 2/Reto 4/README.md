@@ -1,4 +1,4 @@
-# Ejercicio 1 - Reto 4 - Arduino
+# Ejercicio 2 - Reto 4 - Arduino
 
 Este proyecto corresponde al **Reto 4** de ejercicios con Arduino.  
 Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al diseño en Tinkercad.  
@@ -15,11 +15,14 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 
 ## 📝 Descripción
 
-### Contador Binario con LEDs
+### Reto 4: Medición de frecuencia de una señal externa
 
-- Usar cuatro LED para representar un número binario.
-- Un botón incrementará el número en binario (0 a 15).
-- Al llegar a 15, volverá a 0.  
+
+ - Conectar un sensor que genere pulsos (ej. sensor de efecto Hall, encoder, o un simple botón).
+ - Configurar una interrupción externa en el pin 2 para contar pulsos.
+ - Usar un timer interno que genere interrupción cada 1 segundo.
+ - Al cumplirse, calcular y mostrar la frecuencia (pulsos/segundo) en el monitor serial.
+- Objetivo: Combinar interrupciones externas e internas para medir frecuencia.
 
 El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
 
@@ -27,14 +30,14 @@ El diseño se puede visualizar tanto en la imagen incluida como en la simulació
 
 ## 🖼️ Circuito
 
-![Circuito Reto 4](./assets/Reto4.png)
+![Circuito Reto 4](./assets/reto4.jpeg)
 
 ---
 
 ## 🔗 Simulación en Tinkercad
 
 Puedes ver y simular el circuito en el siguiente enlace:  
-👉 [Abrir en Tinkercad](https://www.tinkercad.com/things/5hKLJdS6V6o-copy-of-l293d-motor-driver/editel?returnTo=https%3A%2F%2Fwww.tinkercad.com%2Fdashboard%2Fdesigns%2Fcircuits)
+👉 [Abrir en Tinkercad](https://www.tinkercad.com/things/iURr2MkZ2IL-reto-24)
 
 ---
 
