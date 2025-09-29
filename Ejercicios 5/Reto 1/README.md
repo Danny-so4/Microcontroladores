@@ -15,15 +15,8 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 
 ## 📝 Descripción
 
-### Reto 1: Parpadeo multitarea (Hello RTOS)
-Objetivo: 
-- Introducir el concepto de tareas concurrentes en RTOS.
-
-Descripción:
-- Crear dos tareas independientes:
-- Tarea 1: Encender y apagar un LED cada 500 ms.
-- Tarea 2: Encender y apagar otro LED cada 1000 ms.
-- Observar que ambas tareas funcionan sin necesidad de delay().
+### Escaneo de dispositivos: 
+- Realiza un programa que detecte y muestre en pantalla todos los dispositivos I²C conectados.
 
 El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
 

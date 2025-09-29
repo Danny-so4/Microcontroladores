@@ -1,4 +1,4 @@
-# Ejercicio 4 - Reto 3 - Arduino
+# Ejercicio 5 - Reto 3 - Arduino
 
 Este proyecto corresponde al **Reto 3** de ejercicios con Arduino.  
 Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al diseño en Tinkercad.  
@@ -15,15 +15,8 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 
 ## 📝 Descripción
 
-### Reto 3: Sincronización con semáforos
-Objetivo: 
-- Introducir el control de acceso a recursos compartidos.
-
-
-- Dos tareas intentan escribir en la pantalla LCD o en el puerto Serial (recurso compartido).
-- Usar un semáforo binario o un mutex para que solo una tarea acceda al recurso a la vez.
-- Mostrar en la salida Serial qué tarea está escribiendo y verificar que no haya mensajes mezclados.
-
+### Sensor + Pantalla: 
+- Conecta un sensor I²C (ej. BMP280) y muestra los valores de temperatura y presión en una pantalla LCD con módulo I²C.
 
 El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
 
