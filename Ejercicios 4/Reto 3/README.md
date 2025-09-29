@@ -24,9 +24,6 @@ Objetivo:
 - Usar un semáforo binario o un mutex para que solo una tarea acceda al recurso a la vez.
 - Mostrar en la salida Serial qué tarea está escribiendo y verificar que no haya mensajes mezclados.
 
-
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito

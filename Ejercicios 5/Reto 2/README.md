@@ -19,8 +19,6 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 ### Comunicación Maestro–Esclavo: 
 - Envía un número desde el maestro y haz que el esclavo lo reciba e imprima en el monitor serial.
 
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito

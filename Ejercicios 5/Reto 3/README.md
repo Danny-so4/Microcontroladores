@@ -18,8 +18,6 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 ### Sensor + Pantalla: 
 - Conecta un sensor I²C (ej. BMP280) y muestra los valores de temperatura y presión en una pantalla LCD con módulo I²C.
 
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito

@@ -26,8 +26,6 @@ Descripción:
 - Tarea de alta prioridad: responder a la pulsación de un botón encendiendo un LED inmediatamente.
 - Comparar qué pasa si todas las tareas tienen la misma prioridad vs. cuando se asignan prioridades distintas.
 
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito

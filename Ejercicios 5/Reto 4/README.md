@@ -20,8 +20,6 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 ### Red de Dispositivos: 
 - Conecta dos Arduinos/ESP32 (maestros) y un esclavo sensor, donde los maestros soliciten información en diferentes momentos.
 
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito

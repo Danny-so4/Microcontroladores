@@ -27,8 +27,6 @@ Objetivo:
 - Enciende un LED si la temperatura pasa cierto umbral.
 - Implementar además una tarea de "monitoreo" que corra en paralelo y muestre un "sistema en funcionamiento".
 
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito

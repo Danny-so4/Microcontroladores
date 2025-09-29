@@ -25,8 +25,6 @@ Descripción:
 - Tarea 2: Encender y apagar otro LED cada 1000 ms.
 - Observar que ambas tareas funcionan sin necesidad de delay().
 
-El diseño se puede visualizar tanto en la imagen incluida como en la simulación en Tinkercad.
-
 ---
 
 ## 🖼️ Circuito
