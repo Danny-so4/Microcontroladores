@@ -2,57 +2,57 @@
 #include <Arduino_FreeRTOS.h>
 #include <semphr.h>
 
-// Declarar el mutex
+// Mutex para proteger el recurso compartido (Serial)
 SemaphoreHandle_t xMutex;
 
-// Prototipos
+// Prototipos de tareas
 void TaskWrite1(void *pvParameters);
 void TaskWrite2(void *pvParameters);
 
 void setup() {
   Serial.begin(9600);
+  while (!Serial);  // Esperar a que el monitor esté listo (opcional)
 
   // Crear mutex
   xMutex = xSemaphoreCreateMutex();
 
   if (xMutex != NULL) {
-    // Crear tareas
-    xTaskCreate(TaskWrite1, "Writer1", 1000, NULL, 1, NULL);
-    xTaskCreate(TaskWrite2, "Writer2", 1000, NULL, 1, NULL);
+    // Crear tareas con stack más pequeño
+    xTaskCreate(TaskWrite1, "Writer1", 128, NULL, 1, NULL);
+    xTaskCreate(TaskWrite2, "Writer2", 128, NULL, 1, NULL);
   } else {
     Serial.println("Error: No se pudo crear el mutex");
   }
 }
 
 void loop() {
-  // RTOS se encarga, loop vacío
+  // No se usa, FreeRTOS maneja las tareas
 }
 
-// --- Tareas ---
+// --- Tarea 1 ---
 void TaskWrite1(void *pvParameters) {
   (void) pvParameters;
   for (;;) {
-    // Intentar tomar el mutex
     if (xSemaphoreTake(xMutex, (TickType_t) 10) == pdTRUE) {
       Serial.println("Tarea 1 escribiendo en el recurso...");
-      vTaskDelay(500 / portTICK_PERIOD_MS); // Simular que tarda escribiendo
+      vTaskDelay(pdMS_TO_TICKS(500)); // Simular que tarda escribiendo
       Serial.println("Tarea 1 terminó de escribir.");
-      // Liberar el mutex
       xSemaphoreGive(xMutex);
     }
-    vTaskDelay(1000 / portTICK_PERIOD_MS); // Esperar antes de volver a intentar
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
 
+// --- Tarea 2 ---
 void TaskWrite2(void *pvParameters) {
   (void) pvParameters;
   for (;;) {
     if (xSemaphoreTake(xMutex, (TickType_t) 10) == pdTRUE) {
       Serial.println("Tarea 2 escribiendo en el recurso...");
-      vTaskDelay(300 / portTICK_PERIOD_MS); // Simular que tarda menos
+      vTaskDelay(pdMS_TO_TICKS(300)); // Simular que tarda menos
       Serial.println("Tarea 2 terminó de escribir.");
       xSemaphoreGive(xMutex);
     }
-    vTaskDelay(800 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(800));
   }
 }

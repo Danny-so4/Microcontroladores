@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <Arduino_FreeRTOS.h>
 #include <queue.h>
 #include "DHT.h"
@@ -20,6 +19,11 @@ void TaskProcessData(void *pvParameters);
 
 void setup() {
   Serial.begin(9600);
+  while (!Serial) {
+    ; // Esperar a que se inicialice Serial
+  }
+  Serial.println("📡 Iniciando sistema FreeRTOS con DHT11...");
+
   dht.begin();
   pinMode(LED, OUTPUT);
 
@@ -28,15 +32,15 @@ void setup() {
 
   if (xQueue != NULL) {
     // Crear tareas
-    xTaskCreate(TaskReadSensor, "ReadSensor", 1000, NULL, 1, NULL);
-    xTaskCreate(TaskProcessData, "ProcessData", 1000, NULL, 1, NULL);
+    xTaskCreate(TaskReadSensor, "ReadSensor", 128, NULL, 1, NULL);
+    xTaskCreate(TaskProcessData, "ProcessData", 128, NULL, 1, NULL);
   } else {
-    Serial.println("Error: No se pudo crear la cola");
+    Serial.println("❌ Error: No se pudo crear la cola");
   }
 }
 
 void loop() {
-  // RTOS se encarga, loop vacío
+  // El RTOS maneja las tareas, loop vacío
 }
 
 // --- Tarea de lectura de sensor ---
@@ -48,11 +52,14 @@ void TaskReadSensor(void *pvParameters) {
     if (!isnan(temp)) {
       // Enviar valor a la cola
       if (xQueueSend(xQueue, &temp, portMAX_DELAY) == pdPASS) {
-        Serial.print("Sensor -> enviado: ");
+        Serial.print("📤 Sensor -> enviado: ");
         Serial.println(temp);
       }
+    } else {
+      Serial.println("⚠️ Error al leer DHT11");
     }
-    vTaskDelay(2000 / portTICK_PERIOD_MS); // cada 2 segundos
+
+    vTaskDelay(pdMS_TO_TICKS(2000)); // cada 2 segundos
   }
 }
 
@@ -64,16 +71,19 @@ void TaskProcessData(void *pvParameters) {
   for (;;) {
     // Esperar hasta recibir un dato de la cola
     if (xQueueReceive(xQueue, &receivedValue, portMAX_DELAY) == pdPASS) {
-      Serial.print("Procesador <- recibido: ");
+      Serial.print("📥 Procesador <- recibido: ");
       Serial.println(receivedValue);
 
       // Umbral de temperatura
       if (receivedValue > 28) {
         digitalWrite(LED, HIGH);
-        Serial.println("⚠️ Alerta: Temperatura alta!");
+        Serial.println("🔥 Alerta: Temperatura alta!");
       } else {
         digitalWrite(LED, LOW);
       }
     }
+
+    // Pequeño delay para que el Serial pueda vaciar su buffer
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
 }

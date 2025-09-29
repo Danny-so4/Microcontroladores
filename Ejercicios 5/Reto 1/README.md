@@ -24,7 +24,14 @@ El diseño se puede visualizar tanto en la imagen incluida como en la simulació
 
 ## 🖼️ Circuito
 
-![Circuito Reto 1](./assets/reto1.jpeg)
+![Circuito Reto 1](./assets/reto1.png)
+
+---
+
+## 🔗 Simulación en Tinkercad
+
+Puedes ver y simular el circuito en el siguiente enlace:  
+👉 [Abrir en Tinkercad](https://www.tinkercad.com/things/0UFQzxEOt2w-reto-51)
 
 ---
 

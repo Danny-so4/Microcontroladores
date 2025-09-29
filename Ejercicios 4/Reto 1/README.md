@@ -31,7 +31,7 @@ El diseño se puede visualizar tanto en la imagen incluida como en la simulació
 
 ## 🖼️ Circuito
 
-![Circuito Reto 1](./assets/reto1.jpeg)
+![Circuito Reto 1](./assets/reto1.jpg)
 
 ---
 

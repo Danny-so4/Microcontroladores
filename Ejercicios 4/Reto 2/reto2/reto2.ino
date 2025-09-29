@@ -1,10 +1,12 @@
+// ESP32 + FreeRTOS version
 #include <Arduino.h>
+#include <Arduino_FreeRTOS.h>
 
-// Pines
-#define LED_LOW     2   // LED de baja prioridad
-#define LED_BUTTON  3   // LED controlado por el botón (alta prioridad)
-#define BUTTON      4   // Botón
-#define POT         A0  // Potenciómetro
+// Pines (ajustados para ESP32)
+#define LED_LOW     2    // GPIO2
+#define LED_BUTTON  4    // GPIO4 (evitamos GPIO3 RX)
+#define BUTTON      15   // GPIO15 (con INPUT_PULLUP)
+#define POT         34   // ADC1_6 (GPIO34) -> pin analógico
 
 // Prototipos
 void TaskBlinkLow(void *pvParameters);
@@ -12,22 +14,20 @@ void TaskReadPot(void *pvParameters);
 void TaskButtonHigh(void *pvParameters);
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
-  // Configuración de pines
   pinMode(LED_LOW, OUTPUT);
   pinMode(LED_BUTTON, OUTPUT);
-  pinMode(BUTTON, INPUT_PULLUP); // Botón con resistencia interna
+  pinMode(BUTTON, INPUT_PULLUP); // pulsador a GND cuando se presiona
 
-  // Crear tareas
-  // --- Cambia la prioridad (último argumento) para probar ---
-  xTaskCreate(TaskBlinkLow, "BlinkLow", 1000, NULL, 1, NULL);   // Baja prioridad
-  xTaskCreate(TaskReadPot,  "ReadPot",  1000, NULL, 2, NULL);   // Media prioridad
-  xTaskCreate(TaskButtonHigh,"Button",  1000, NULL, 3, NULL);   // Alta prioridad
+  // Crear tareas (stack size reducido a 2048 bytes / prioridad según tu diseño)
+  xTaskCreate(TaskBlinkLow, "BlinkLow", 2048, NULL, 1, NULL);   // Baja prioridad
+  xTaskCreate(TaskReadPot,  "ReadPot",  4096, NULL, 2, NULL);   // Media prioridad
+  xTaskCreate(TaskButtonHigh,"Button",  2048, NULL, 3, NULL);   // Alta prioridad
 }
 
 void loop() {
-  // El loop queda vacío porque FreeRTOS maneja las tareas
+  // vacío, FreeRTOS gestiona las tareas
 }
 
 // --- Tareas ---
@@ -35,31 +35,30 @@ void TaskBlinkLow(void *pvParameters) {
   (void) pvParameters;
   for (;;) {
     digitalWrite(LED_LOW, HIGH);
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(1000));
     digitalWrite(LED_LOW, LOW);
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
 
 void TaskReadPot(void *pvParameters) {
   (void) pvParameters;
   for (;;) {
-    int value = analogRead(POT);
+    int value = analogRead(POT); // 0..4095 en ESP32 dependiendo de la atenuación
     Serial.print("Potenciometro: ");
     Serial.println(value);
-    vTaskDelay(500 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(500));
   }
 }
 
 void TaskButtonHigh(void *pvParameters) {
   (void) pvParameters;
   for (;;) {
-    if (digitalRead(BUTTON) == LOW) { // Pulsado
+    if (digitalRead(BUTTON) == LOW) { // pulsado (INPUT_PULLUP)
       digitalWrite(LED_BUTTON, HIGH);
     } else {
       digitalWrite(LED_BUTTON, LOW);
     }
-    // No usamos delay aquí, revisa continuamente
-    vTaskDelay(1); // Cede un poquito de tiempo al resto
+    vTaskDelay(pdMS_TO_TICKS(1)); // cede muy poco tiempo
   }
 }
