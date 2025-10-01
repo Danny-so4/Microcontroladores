@@ -22,7 +22,7 @@ Incluye un diagrama del circuito, el código fuente en Arduino y un enlace al di
 
 ## 🖼️ Circuito
 
-![Circuito Reto 3](./assets/reto3.jpeg)
+![Circuito Reto 3](./assets/reto3.jpg)
 
 ---
 
