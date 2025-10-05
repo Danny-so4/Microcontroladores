@@ -1,86 +1,136 @@
-# Proyecto: Comunicación I2C, EEPROM y RTOS
+# 🔔 Alarma IoT con ESP32 + EEPROM externa 24C08 + RTOS + I2C
 
-Este proyecto implementa la comunicación mediante el protocolo **I2C** entre un microcontrolador y una memoria **EEPROM**, junto con el uso de un **RTOS** (Sistema Operativo en Tiempo Real) para la organización de tareas.  
-Incluye la explicación teórica, la parte física, la simulación, pruebas y resultados.
-
----
-
-## 1. Introducción
-
-En los sistemas embebidos modernos, la correcta gestión del tiempo y la comunicación entre periféricos es fundamental.  
-Este proyecto combina tres elementos importantes:
-
-- **RTOS**: Organización de procesos y tareas en un sistema de tiempo real.  
-- **I2C**: Protocolo de comunicación serial síncrona de dos hilos.  
-- **EEPROM**: Memoria no volátil para almacenamiento de datos.  
+Proyecto de una **alarma IoT** implementada en un **ESP32**, con almacenamiento de eventos en una **EEPROM externa 24C08** mediante el protocolo **I2C**, conectividad WiFi y comunicación por **MQTT**.  
+El sistema se organiza con un **RTOS** (Sistema Operativo en Tiempo Real) para manejar tareas críticas, comunicación, almacenamiento y control de usuario.
 
 ---
 
-## 2. Explicación de los temas
+## 📑 Índice
 
-### **EPROM / EEPROM**
-- **EEPROM** (Electrically Erasable Programmable Read-Only Memory) es un tipo de memoria no volátil.
-- Permite guardar información incluso si se apaga el dispositivo.
-- En este proyecto se almacenan datos como configuraciones o valores de sensores.
-- Se accede a la EEPROM mediante I2C.
-
-### **RTOS**
-- Un **RTOS (Real-Time Operating System)** permite ejecutar varias tareas en paralelo, garantizando tiempos de respuesta.
-- Orden de importancia de tareas en RTOS:
-  1. **Tareas críticas**: Requieren respuesta inmediata (ej. interrupciones de sensores).
-  2. **Tareas de comunicación**: Transferencia de datos (ej. I2C).
-  3. **Tareas de almacenamiento**: Guardado en EEPROM.
-  4. **Tareas de usuario**: Interfaz o monitoreo.
-
-### **I2C**
-- Protocolo de comunicación serial síncrona.
-- Solo usa **dos líneas**:
-  - **SDA** (Serial Data).
-  - **SCL** (Serial Clock).
-- El microcontrolador actúa como **maestro** y la EEPROM como **esclavo**.
-- Permite enviar y leer datos en secuencia.
+1. [Componentes](#-componentes)  
+2. [Funcionalidades principales](#-funcionalidades-principales)  
+3. [Explicación de los temas](#-explicación-de-los-temas)  
+   - [EEPROM](#eeprom)  
+   - [RTOS](#rtos)  
+   - [I2C](#i2c)  
+4. [Diagramas de conexión](#-diagramas-de-conexión)  
+5. [Configuración por defecto](#-configuración-por-defecto)  
+6. [Simulación y pruebas](#-simulación-y-pruebas)  
+7. [Resultados](#-resultados)  
+8. [Conclusiones](#-conclusiones)  
 
 ---
 
-## 3. Parte Física
+## 🛠️ Componentes
 
-- **Microcontrolador**: Configurado como maestro I2C.  
-- **EEPROM**: Dispositivo esclavo donde se guardan datos.  
-- **Conexiones**:
-  - SDA y SCL entre microcontrolador y EEPROM.
-  - Resistencias pull-up en SDA y SCL para garantizar la señal.  
-
-📷 Imagen física:  
-![Fisico](./assets/Fisico.jpeg)
-
----
-
-## 4. Simulación y Pruebas
-
-La simulación se realiza en un software de diseño de circuitos (ej. Proteus o Wokwi).  
-En la simulación se prueba:  
-- Escritura de un valor en la EEPROM.  
-- Lectura posterior del mismo valor para verificar que los datos se almacenaron correctamente.  
-- Uso de tareas RTOS para manejar los procesos de escritura, lectura y monitoreo.  
-
-📷 Imagen simulación:  
-![Simulación](./assets/Simulacion.jpeg)
+- ESP32 DevKit v1  
+- Sensor de proximidad **E18-D80NK (NPN)**  
+- EEPROM I2C **24C08**  
+- 1 LED + resistencia de 220 Ω  
+- 1 pulsador + resistencia de pull-down/pull-up  
+- 1 buzzer activo  
+- Resistencias varias para el circuito  
 
 ---
 
-## 5. Resultados
+## 📡 Funcionalidades principales
 
-- Se logró la **comunicación estable mediante I2C**.  
-- Los datos escritos en la **EEPROM se conservaron** incluso tras reiniciar el microcontrolador.  
-- El **RTOS permitió priorizar tareas**, asegurando que la comunicación y almacenamiento fueran confiables.  
-- Se validó tanto en la simulación como en el montaje físico.  
+1. **Detección de intrusiones** con el sensor E18-D80NK.  
+2. **Alarma sonora y visual** mediante buzzer y LED.  
+3. **Control remoto por MQTT**:
+   - `alarma/control` → ARMAR / DESARMAR / FORZAR  
+   - `alarma/status` → Estado actual de la alarma  
+   - `alarma/evento` → Eventos de detección e intrusión  
+   - `alarma/eeprom1/read` → Lectura de logs almacenados en EEPROM  
+4. **Logs en EEPROM externa (24C08)** para guardar eventos con marca de tiempo.  
+5. **Botón físico** para alternar entre ARMADO y DESARMADO.  
+6. **Conexión WiFi + MQTT seguro (TLS/SSL)** con HiveMQ Cloud.  
+7. **Gestión con RTOS** para asegurar prioridades de ejecución.  
 
 ---
 
-## Conclusiones
+## 📚 Explicación de los temas
 
-- La integración de **RTOS** con **I2C y EEPROM** facilita el diseño de sistemas embebidos robustos.  
-- **EEPROM** es útil para almacenar configuraciones o valores importantes que deben conservarse tras apagar el sistema.  
-- El protocolo **I2C** simplifica la conexión entre múltiples dispositivos con solo dos líneas.  
-- El uso de **RTOS** asegura que las tareas críticas tengan prioridad y no se vean afectadas por procesos secundarios.  
-- Este proyecto demuestra una solución práctica y escalable para sistemas donde la comunicación, almacenamiento y gestión de tiempo real son esenciales.  
+### EEPROM
+- Es una memoria no volátil (Electrically Erasable Programmable Read-Only Memory).  
+- Conserva la información aunque se apague el sistema.  
+- En este proyecto se utiliza para almacenar **eventos de la alarma y configuraciones**.  
+- Se accede a través del protocolo **I2C**.  
+
+### RTOS
+- Un **RTOS (Real-Time Operating System)** permite ejecutar varias tareas en paralelo, garantizando tiempos de respuesta.  
+- Orden de importancia de las tareas:  
+  1. **Tareas críticas** → Interrupciones del sensor y eventos de alarma.  
+  2. **Tareas de comunicación** → MQTT e I2C.  
+  3. **Tareas de almacenamiento** → Escritura y lectura en EEPROM.  
+  4. **Tareas de usuario** → LED, buzzer y pulsador.  
+
+### I2C
+- Protocolo de comunicación serial síncrona de **dos hilos**:  
+  - **SDA** (Serial Data).  
+  - **SCL** (Serial Clock).  
+- El ESP32 actúa como **maestro** y la EEPROM como **esclavo**.  
+- Permite escritura y lectura de datos en secuencia con confirmaciones.  
+
+---
+
+## 📐 Diagramas de conexión
+
+- **Circuito físico**  
+  ![Fisico](/assets/Fisico.jpeg)  
+
+- **Simulación (Fritzing / Proteus / Wokwi)**  
+  ![Simulacion](/assets/Simulacion.jpeg)  
+
+### Pines usados en el ESP32
+
+| Componente | Pin ESP32 | Descripción |
+|------------|-----------|-------------|
+| E18-D80NK  | GPIO34    | Salida sensor (entrada digital) |
+| Botón      | GPIO25    | Entrada con interrupción |
+| LED        | GPIO26    | Indicador de estado |
+| Buzzer     | GPIO27    | Alarma sonora |
+| EEPROM SDA | GPIO21    | I2C SDA |
+| EEPROM SCL | GPIO22    | I2C SCL |
+
+---
+
+## ⚙️ Configuración por defecto
+
+- SSID y contraseña WiFi predefinidos.  
+- Dirección del broker MQTT seguro en HiveMQ Cloud.  
+- Usuario y contraseña para autenticación TLS/SSL.  
+
+---
+
+## 🔬 Simulación y pruebas
+
+- **En simulación (Proteus o Wokwi):**  
+  - Escritura de datos en la EEPROM.  
+  - Lectura posterior para verificar el almacenamiento.  
+  - Pruebas de comunicación MQTT.  
+
+- **En montaje físico:**  
+  - Confirmación de detección de intrusos con el sensor E18-D80NK.  
+  - Validación del almacenamiento en EEPROM tras reinicios del ESP32.  
+  - Control de la alarma por **botón físico** y por **MQTT**.  
+  - Uso de FreeRTOS del ESP32 para priorizar las tareas.  
+
+---
+
+## ✅ Resultados
+
+- Comunicación estable con la **EEPROM 24C08** usando I2C.  
+- **Datos persistentes** en memoria tras reinicios.  
+- **Gestión de tareas con RTOS**, garantizando confiabilidad en detección, comunicación y almacenamiento.  
+- Control exitoso tanto local (botón) como remoto (MQTT).  
+
+---
+
+## 📌 Conclusiones
+
+- La integración de **RTOS con I2C y EEPROM** permitió un sistema **robusto y confiable**.  
+- **EEPROM** es fundamental para guardar configuraciones y logs que persisten tras apagados.  
+- El **protocolo I2C** simplifica la conexión entre múltiples dispositivos con solo dos líneas.  
+- El uso de **RTOS** asegura que las tareas críticas (detección de intrusos) siempre tengan prioridad.  
+- El sistema combina **detección, almacenamiento y comunicación en tiempo real**, lo que lo hace escalable para proyectos IoT más complejos.  
