@@ -77,10 +77,10 @@ El sistema se organiza con un **RTOS** (Sistema Operativo en Tiempo Real) para m
 ## 📐 Diagramas de conexión
 
 - **Circuito físico**  
-  ![Fisico](/assets/Fisico.jpeg)  
+  ![Fisico](./assets/Fisico.jpeg)  
 
 - **Simulación (Fritzing / Proteus / Wokwi)**  
-  ![Simulacion](/assets/Simulacion.jpeg)  
+  ![Simulacion](./assets/Simulacion.jpeg)  
 
 ### Pines usados en el ESP32
 
