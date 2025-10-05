@@ -1,5 +1,7 @@
 # 🔔 Alarma IoT con ESP32 + EEPROM externa 24C08 + RTOS + I2C
 
+Danny Harvey Lopez Lopez - 55622029
+
 Proyecto de una **alarma IoT** implementada en un **ESP32**, con almacenamiento de eventos en una **EEPROM externa 24C08** mediante el protocolo **I2C**, conectividad WiFi y comunicación por **MQTT**.  
 El sistema se organiza con un **RTOS** (Sistema Operativo en Tiempo Real) para manejar tareas críticas, comunicación, almacenamiento y control de usuario.
 
