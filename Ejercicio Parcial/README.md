@@ -105,7 +105,7 @@ El sistema se organiza con un **RTOS** (Sistema Operativo en Tiempo Real) para m
 
 ## 🔬 Simulación y pruebas
 
-- **En simulación (Proteus o Wokwi):**  
+- **En simulación:**  
   - Escritura de datos en la EEPROM.  
   - Lectura posterior para verificar el almacenamiento.  
   - Pruebas de comunicación MQTT.  
